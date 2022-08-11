@@ -4,13 +4,15 @@ import itertools
 import string
 
 TO_FIND = ["ENIGMA", "PANZER", "RATSEL", "CRYPTO", "BEFHL"]
-EXTENDED_LIST = {}
+EXTENDED_LIST = []
+
 machine = EnigmaMachine.from_key_sheet(
        rotors='II I V',
        reflector='A',
 #        ring_settings='W H I',
        ring_settings='11 16 6',
        plugboard_settings='OZ VN MI AH LF DS GR BK XC UW')
+
 def is_contain(str):
         for word in TO_FIND:
                 if word in str: return True
@@ -25,22 +27,32 @@ length = 3
 for combinaison in itertools.product(string.ascii_uppercase, repeat=length):
         msg_key = ''.join(combinaison)
         str1 = decrypt(machine, msg_key, 'Cniuwi qxsjsh bmx Qwwjgh')
-        str2 = decrypt(machine, msg_key, 'VypswfkvhhvfbwsOphszx')
+        str2 = decrypt(machine, msg_key, 'CniuwiqxsjshbmxQwwjgh')
         if is_contain(str1) or is_contain(str2): print(msg_key + " " + str1 +" "+str2)
+
+
+
+
+
+
+
+
+
+
 
 
 print("DEBUG:")
 machine.set_display('FDF')    # set initial rotor positions
-enc_key = machine.process_text('Cniuwi           qxsjsh bmx Qwwjgh')      # encrypt message key
-print("\n"+enc_key)
+enc_key = machine.process_text('Cniuwi qxsjsh bmx Qwwjgh')      # encrypt message key
+print(enc_key)
 
 machine.set_display('FDF')    # set initial rotor positions
-enc_key = machine.process_text('Cniuwi  qxsjsh bmx Qwwjgh')      # encrypt message key
-print("\n"+enc_key)
+enc_key = machine.process_text('Cniuwi qxsjsh bmx Qwwjgh')      # encrypt message key
+print(enc_key)
 
 machine.set_display('FDF')
 enc_key = machine.process_text(enc_key)      # encrypt message key
-print("\n"+enc_key)
+print(enc_key)
 
 
 
